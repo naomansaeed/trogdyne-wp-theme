@@ -11,38 +11,510 @@ Updated: 2026-06-25 11:55:13
 
 */
 
+
+/* ============================================
+   TERRITORY D — THE FOUNDATION BUILDER
+   Light-first with minimal dark mode support
+   ============================================ */
+
+/* === GOOGLE FONTS === */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Lora:ital,wght@0,400;1,400&family=JetBrains+Mono:wght@400&display=swap');
 
-body {
-    font-family: 'Lora', serif;
-    color: #2C2C2C;
-    background-color: #F5F2ED;
-    line-height: 1.6;
+/* === ROOT VARIABLES (LIGHT) === */
+:root {
+  --tg-navy: #1A2C3B;
+  --tg-parchment: #F5F2ED;
+  --tg-terracotta: #D17B4B;
+  --tg-offblack: #2C2C2C;
+  --tg-stone: #E3DDD3;
+  --tg-white: #FFFFFF;
+
+  --tg-font-sans: 'DM Sans', sans-serif;
+  --tg-font-serif: 'Lora', serif;
+  --tg-font-mono: 'JetBrains Mono', monospace;
+
+  --tg-radius: 0.5rem;
+  --tg-spacing-xs: 0.5rem;
+  --tg-spacing-sm: 1rem;
+  --tg-spacing-md: 2rem;
+  --tg-spacing-lg: 4rem;
+  --tg-spacing-xl: 6rem;
 }
 
+/* === BASE RESET === */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--tg-font-serif);
+  font-size: 1.125rem;
+  line-height: 1.65;
+  color: var(--tg-offblack);
+  background-color: var(--tg-parchment);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* === TYPOGRAPHY === */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
-    color: #1A2C3B;
-    letter-spacing: -0.02em;
+  font-family: var(--tg-font-sans);
+  font-weight: 700;
+  color: var(--tg-navy);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); }
+h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+h3 { font-size: 1.25rem; }
+
+p {
+  margin-bottom: var(--tg-spacing-sm);
 }
 
 a {
-    color: #D17B4B;
-    text-decoration: none;
+  color: var(--tg-terracotta);
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 a:hover {
-    color: #1A2C3B;
-}
-
-.wp-element-button,
-button,
-input[type="submit"] {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
+  color: var(--tg-navy);
 }
 
 code, pre {
-    font-family: 'JetBrains Mono', monospace;
+  font-family: var(--tg-font-mono);
+  font-size: 0.9em;
+}
+
+/* === BUTTONS === */
+.tg-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: var(--tg-radius);
+  text-decoration: none;
+  font-family: var(--tg-font-sans);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+}
+
+.tg-btn-primary {
+  background-color: var(--tg-terracotta);
+  color: var(--tg-white);
+  border-color: var(--tg-terracotta);
+}
+
+.tg-btn-primary:hover {
+  background-color: #b8693e;
+  border-color: #b8693e;
+  color: var(--tg-white);
+  transform: translateY(-2px);
+}
+
+.tg-btn-secondary {
+  background-color: transparent;
+  color: var(--tg-navy);
+  border-color: var(--tg-navy);
+}
+
+.tg-btn-secondary:hover {
+  background-color: var(--tg-navy);
+  color: var(--tg-parchment);
+  transform: translateY(-2px);
+}
+
+/* === DATUM LINE === */
+.tg-datum {
+  display: block;
+  width: 60px;
+  height: 1px;
+  background-color: var(--tg-navy);
+  margin: var(--tg-spacing-sm) 0;
+  border: none;
+}
+
+.tg-datum.stone {
+  background-color: var(--tg-stone);
+}
+
+.tg-datum.wide {
+  width: 100%;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* === FULL-WIDTH BREAKOUT === */
+.tg-home {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow-x: hidden;
+  font-family: var(--tg-font-sans);
+  color: var(--tg-navy);
+  line-height: 1.6;
+}
+
+body:has(.tg-home) {
+  overflow-x: hidden;
+}
+
+/* === HERO === */
+.tg-hero {
+  background-color: var(--tg-parchment);
+  padding: var(--tg-spacing-xl) var(--tg-spacing-md);
+  text-align: center;
+  margin-top: 0;
+}
+
+.tg-hero h1 {
+  font-family: var(--tg-font-sans);
+  font-weight: 700;
+  color: var(--tg-navy);
+  margin-bottom: var(--tg-spacing-sm);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tg-hero .lead {
+  font-family: var(--tg-font-serif);
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  color: var(--tg-offblack);
+  max-width: 600px;
+  margin: 0 auto var(--tg-spacing-md);
+}
+
+.tg-hero .location {
+  font-family: var(--tg-font-sans);
+  font-size: 0.95rem;
+  color: var(--tg-stone);
+  margin-bottom: var(--tg-spacing-md);
+}
+
+.tg-hero .actions {
+  display: flex;
+  gap: var(--tg-spacing-sm);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* === SERVICES === */
+.tg-services {
+  background-color: var(--tg-parchment);
+  padding: var(--tg-spacing-xl) var(--tg-spacing-md);
+}
+
+.tg-section-title {
+  font-family: var(--tg-font-sans);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: var(--tg-spacing-lg);
+  color: var(--tg-navy);
+}
+
+.tg-services-grid {
+  display: grid;
+  gap: var(--tg-spacing-md);
+  max-width: 1100px;
+  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.tg-service-card {
+  background-color: var(--tg-white);
+  border: 1px solid var(--tg-stone);
+  border-radius: var(--tg-radius);
+  padding: var(--tg-spacing-md);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.tg-service-card:hover {
+  box-shadow: 0 4px 16px rgba(26, 44, 59, 0.06);
+  transform: translateY(-2px);
+}
+
+.tg-service-card .icon {
+  font-size: 1.5rem;
+  margin-bottom: var(--tg-spacing-xs);
+  color: var(--tg-navy);
+}
+
+.tg-service-card h3 {
+  font-family: var(--tg-font-sans);
+  font-weight: 700;
+  margin-bottom: var(--tg-spacing-xs);
+  color: var(--tg-navy);
+}
+
+.tg-service-card p {
+  font-family: var(--tg-font-serif);
+  color: var(--tg-offblack);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* === PROJECTS === */
+.tg-projects {
+  background-color: var(--tg-parchment);
+  padding: var(--tg-spacing-xl) var(--tg-spacing-md);
+}
+
+.tg-projects .tg-section-title {
+  color: var(--tg-navy);
+}
+
+.tg-projects-grid {
+  display: grid;
+  gap: var(--tg-spacing-md);
+  max-width: 1100px;
+  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.tg-project-card {
+  background-color: var(--tg-white);
+  border: 1px solid var(--tg-stone);
+  border-radius: var(--tg-radius);
+  padding: var(--tg-spacing-md);
+  transition: box-shadow 0.3s ease;
+}
+
+.tg-project-card:hover {
+  box-shadow: 0 4px 16px rgba(26, 44, 59, 0.06);
+}
+
+.tg-project-card h3 {
+  font-family: var(--tg-font-sans);
+  font-weight: 700;
+  margin-bottom: var(--tg-spacing-xs);
+  color: var(--tg-navy);
+}
+
+.tg-project-card p {
+  font-family: var(--tg-font-serif);
+  color: var(--tg-offblack);
+  font-size: 0.95rem;
+  margin-bottom: var(--tg-spacing-sm);
+  line-height: 1.6;
+}
+
+.tg-project-card .tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: var(--tg-spacing-sm);
+}
+
+.tg-project-card .tag {
+  font-family: var(--tg-font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.75rem;
+  background-color: rgba(26, 44, 59, 0.06);
+  color: var(--tg-navy);
+  border-radius: 999px;
+}
+
+.tg-project-card .tg-btn {
+  font-size: 0.9rem;
+  padding: 0.6rem 1.2rem;
+}
+
+.tg-project-card .tg-btn-primary {
+  background-color: var(--tg-terracotta);
+}
+
+/* === BLOG === */
+.tg-blog {
+  background-color: var(--tg-parchment);
+  padding: var(--tg-spacing-xl) var(--tg-spacing-md);
+}
+
+.tg-blog-grid {
+  display: grid;
+  gap: var(--tg-spacing-md);
+  max-width: 1100px;
+  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.tg-blog-card {
+  background-color: var(--tg-white);
+  border: 1px solid var(--tg-stone);
+  border-radius: var(--tg-radius);
+  padding: var(--tg-spacing-md);
+  transition: box-shadow 0.3s ease;
+}
+
+.tg-blog-card:hover {
+  box-shadow: 0 4px 16px rgba(26, 44, 59, 0.06);
+}
+
+.tg-blog-card .category {
+  font-family: var(--tg-font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--tg-terracotta);
+  margin-bottom: var(--tg-spacing-xs);
+}
+
+.tg-blog-card h3 {
+  font-family: var(--tg-font-sans);
+  font-weight: 700;
+  margin-bottom: var(--tg-spacing-xs);
+  color: var(--tg-navy);
+}
+
+.tg-blog-card p {
+  font-family: var(--tg-font-serif);
+  color: var(--tg-offblack);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* === CTA === */
+.tg-cta {
+  background-color: var(--tg-navy);
+  color: var(--tg-parchment);
+  padding: var(--tg-spacing-xl) var(--tg-spacing-md);
+  text-align: center;
+}
+
+.tg-cta h2 {
+  font-family: var(--tg-font-sans);
+  font-weight: 700;
+  margin-bottom: var(--tg-spacing-sm);
+  color: var(--tg-parchment);
+}
+
+.tg-cta p {
+  font-family: var(--tg-font-serif);
+  font-size: 1.1rem;
+  color: rgba(245, 242, 237, 0.85);
+  max-width: 500px;
+  margin: 0 auto var(--tg-spacing-md);
+}
+
+.tg-cta .tg-btn {
+  background-color: var(--tg-parchment);
+  color: var(--tg-navy);
+  font-weight: 700;
+  border-color: var(--tg-parchment);
+}
+
+.tg-cta .tg-btn:hover {
+  background-color: var(--tg-white);
+  color: var(--tg-navy);
+  border-color: var(--tg-white);
+}
+
+/* === IMAGE CONSTRAINTS === */
+.tg-project-card img,
+.tg-service-card img,
+.tg-blog-card img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--tg-radius);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 640px) {
+  .tg-hero {
+    padding: var(--tg-spacing-lg) var(--tg-spacing-sm);
+  }
+
+  .tg-services,
+  .tg-projects,
+  .tg-blog,
+  .tg-cta {
+    padding: var(--tg-spacing-lg) var(--tg-spacing-sm);
+  }
+
+  .tg-hero .actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tg-btn {
+    width: 100%;
+    justify-content: center;
+    max-width: 320px;
+  }
+}
+
+/* ============================================
+   DARK MODE (MINIMAL — OS FORCED ONLY)
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --tg-parchment: #1A2C3B;
+    --tg-navy: #F5F2ED;
+    --tg-offblack: #E3DDD3;
+    --tg-stone: #2C2C2C;
+    --tg-white: #2C2C2C;
+  }
+
+  body {
+    background-color: var(--tg-parchment);
+    color: var(--tg-offblack);
+  }
+
+  .tg-service-card,
+  .tg-project-card,
+  .tg-blog-card {
+    background-color: var(--tg-white);
+    border-color: var(--tg-stone);
+  }
+
+  .tg-cta {
+    background-color: #0f1a24;
+  }
+
+  .tg-cta h2 {
+    color: var(--tg-parchment);
+  }
+
+  .tg-cta p {
+    color: rgba(245, 242, 237, 0.8);
+  }
+
+  .tg-cta .tg-btn {
+    background-color: var(--tg-parchment);
+    color: #1A2C3B;
+    border-color: var(--tg-parchment);
+  }
+
+  .tg-cta .tg-btn:hover {
+    background-color: var(--tg-white);
+  }
+
+  .tg-datum {
+    background-color: var(--tg-navy);
+  }
+
+  .tg-project-card .tag {
+    background-color: rgba(245, 242, 237, 0.08);
+    color: var(--tg-navy);
+  }
 }
